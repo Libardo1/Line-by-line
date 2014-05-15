@@ -192,6 +192,7 @@ class RDocsCommand(sublime_plugin.TextCommand):
 
         for p in params:
             # self.view.insert(edit, sel.begin(), p + "\n")
+            p=re.sub('\s+', "", p)
 
             # Added if statement if not empty
             if p != '':
@@ -201,7 +202,10 @@ class RDocsCommand(sublime_plugin.TextCommand):
                 p = re.sub('(.*)=(.*)', "\\1", p);
                 p = re.sub("\s+"," ",p)
                 p = re.sub("ISEQUALTOVALUETHIS", "=", p)
-                snippet += "#' @param %s\n" % p
+                p = re.sub('\s+', "", p)
+
+                if p != '':
+                    snippet += "#' @param %s\n" % p
 
         snippet += "#' @export\n#' @keywords\n#' @seealso\n#' @return\n#' @aliases\n#' @examples \dontrun{\n#'\n#'}\n"
 
